@@ -297,10 +297,6 @@ viewShowingAnswer result model =
             ]
 
 
-
--- todo: ads
-
-
 showFooter : Html Msg
 showFooter =
     footer [ class "footer" ]
