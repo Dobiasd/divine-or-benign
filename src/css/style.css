@@ -66,6 +66,11 @@ body
     /* todo: fix button stuck pressed on mobile devices */
 }
 
+.button:focus
+{
+    outline: none;
+}
+
 .leftbutton
 {
     margin-right: 8px;
