@@ -5,6 +5,7 @@ body
 
 .mainwrapper
 {
+    padding: 8px;
 }
 
 .points
@@ -55,8 +56,6 @@ body
 {
     margin-bottom: 0px;
 }
-
-
 
 .buttons
 {
