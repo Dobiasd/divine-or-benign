@@ -12,4 +12,5 @@ then
   cp -R ./src/js ./build/
   cp -R ./src/css ./build/
   cp ./src/index.html ./build/index.html
+  cp ./src/favicon.png ./build/favicon.png
 fi

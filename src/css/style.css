@@ -23,7 +23,7 @@ body
 
 .main
 {
-    padding-top: 16px;
+    padding-top: 4px;
     font-size: 150%;
 }
 
@@ -66,6 +66,10 @@ body
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
+}
+
+.button:focus {
+  outline: none;
 }
 
 .header
