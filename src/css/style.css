@@ -61,10 +61,18 @@ body
 
 .button
 {
-    font-size: 115%;
-    margin-left: 8px;
-    margin-right: 8px;
+    font-size: 110%;
     margin-bottom: 10px;
+}
+
+.leftbutton
+{
+    margin-right: 8px;
+}
+
+.rightbutton
+{
+    margin-left: 8px;
 }
 
 .button:focus {

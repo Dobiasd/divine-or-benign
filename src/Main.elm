@@ -330,9 +330,9 @@ showButtons language =
                 [ text (questionText language) ]
             ]
         , div [ class "buttons" ]
-            [ button [ class "btn btn-default btn-lg button", onClick DivineClick ] [ text (divineButtonText language) ]
+            [ button [ class "btn btn-default btn-lg button leftbutton", onClick DivineClick ] [ text (divineButtonText language) ]
             , text (orText language)
-            , button [ class "btn btn-default btn-lg button", onClick BenignClick ] [ text (benignButtonText language) ]
+            , button [ class "btn btn-default btn-lg button rightbutton", onClick BenignClick ] [ text (benignButtonText language) ]
             ]
         ]
 
