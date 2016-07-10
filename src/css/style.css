@@ -72,6 +72,11 @@ body
     text-align: center;
 }
 
+.vstext
+{
+    text-align: center;
+}
+
 .explanation
 {
     max-width: 800px;
@@ -92,4 +97,5 @@ body
 
 .headerimage
 {
+    /* todo: try to shrink gutter between columns */;
 }

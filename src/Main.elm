@@ -260,12 +260,6 @@ viewAsking model =
         ]
 
 
-
--- todo: progres bar
--- todo: make end more noticable, show score in big
--- todo: ads
-
-
 viewShowingAnswer : Bool -> Model -> Html Msg
 viewShowingAnswer result model =
     let
@@ -352,7 +346,7 @@ showHeader =
     div [ class "container header" ]
         [ div [ class "row" ]
             [ div [ class "col-md-5 headerimage" ] [ img [ class "well", src "img/creation_of_adam.jpg" ] [] ]
-            , div [ class "col-md-2" ] [ p [ class "well" ] [ text "vs." ] ]
+            , div [ class "col-md-2" ] [ p [ class "well vstext" ] [ text "vs." ] ]
             , div [ class "col-md-5 headerimage" ] [ img [ class "well", src "img/troll_net.jpg" ] [] ]
             ]
         ]
