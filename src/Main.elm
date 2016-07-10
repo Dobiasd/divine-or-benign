@@ -268,10 +268,9 @@ viewShowingAnswer result model =
 
         buttonToShow =
             if notDoneYet then
-                button [ class "button btn btn-default btn-lg", onClick ContinueClick ] [ text (continueText model.language) ]
+                div [ class "button btn btn-default btn-lg", onClick ContinueClick ] [ text (continueText model.language) ]
             else
-                div []
-                    [ button [ class "button btn btn-default btn-lg", onClick RestartClick ] [ text (restartText model.language) ] ]
+                div [ class "button btn btn-default btn-lg", onClick RestartClick ] [ text (restartText model.language) ]
 
         ( resultString, resultClass ) =
             if result then
@@ -316,7 +315,7 @@ showDocument withSource document =
             else
                 "-"
     in
-        div [ class "document" ]
+        div [ class "document", autofocus True ]
             [ p [] [ text textString ]
             , p [] [ text passageString ]
             ]
@@ -330,9 +329,9 @@ showButtons language =
                 [ text (questionText language) ]
             ]
         , div [ class "buttons" ]
-            [ button [ class "btn btn-default btn-lg button leftbutton", onClick DivineClick ] [ text (divineButtonText language) ]
+            [ div [ class "btn btn-default btn-lg button leftbutton", onClick DivineClick ] [ text (divineButtonText language) ]
             , text (orText language)
-            , button [ class "btn btn-default btn-lg button rightbutton", onClick BenignClick ] [ text (benignButtonText language) ]
+            , div [ class "btn btn-default btn-lg button rightbutton", onClick BenignClick ] [ text (benignButtonText language) ]
             ]
         ]
 
