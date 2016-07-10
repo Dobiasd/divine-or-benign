@@ -26,18 +26,14 @@ body
     font-size: 150%;
 }
 
-.documentwrapper
-{
-}
-
 .document
 {
-    font-family: Georgia, serif;
+    font-family: "Book Antiqua", Palatino, "Palatino Linotype", "Palatino LT STD", Georgia, serif;
+    font-weight: bold;
     color: #000000;
     background: url(../img/paper.jpg);
     background-size: 100% auto;
-    background-repeat: no-repeat;
-    padding: 16px;
+    padding: 22px;
     margin: 0 auto;
     max-width: 550px;
     min-height: 150px;
@@ -65,7 +61,7 @@ body
 
 .button
 {
-    font-size: 160%;
+    font-size: 110%;
     margin-left: 10px;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -74,12 +70,6 @@ body
 .header
 {
     text-align: center;
-}
-
-.headerimage
-{
-    margin-left: 24px;
-    margin-right: 24px;
 }
 
 .explanation
@@ -98,4 +88,8 @@ body
 .footer
 {
     text-align: right;
+}
+
+.headerimage
+{
 }

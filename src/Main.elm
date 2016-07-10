@@ -197,14 +197,39 @@ view model =
 
 showPoints : Language -> Int -> Int -> Html Msg
 showPoints language points rounds =
-    div [ class "points panel panel-default" ]
-        [ textPoints language
-            ++ ": "
-            ++ toString points
-            ++ "/"
-            ++ toString rounds
-            |> text
-        ]
+    let
+        wrongCount =
+            rounds - points
+
+        correctPercentage =
+            round (100 * toFloat points / toFloat roundCount)
+
+        wrongPercentage =
+            round (100 * toFloat wrongCount / toFloat roundCount)
+
+        progressBar =
+            div [ class "progress" ]
+                [ div
+                    [ class "progress-bar progress-bar-success progress-bar-striped"
+                    , style [ ( "width", toString correctPercentage ++ "%" ) ]
+                    ]
+                    []
+                , div
+                    [ class "progress-bar progress-bar-danger progress-bar-striped"
+                    , style [ ( "width", toString wrongPercentage ++ "%" ) ]
+                    ]
+                    []
+                ]
+    in
+        div [ class "points panel panel-default" ]
+            [ textPoints language
+                ++ ": "
+                ++ toString points
+                ++ "/"
+                ++ toString rounds
+                |> text
+            , progressBar
+            ]
 
 
 currentDocument : Model -> Document
@@ -238,6 +263,7 @@ viewAsking model =
 
 -- todo: progres bar
 -- todo: make end more noticable, show score in big
+-- todo: ads
 
 
 viewShowingAnswer : Bool -> Model -> Html Msg
@@ -292,13 +318,17 @@ showDocument : Bool -> Document -> Html Msg
 showDocument withSource document =
     let
         textString =
+            document.content
+
+        passageString =
             if withSource then
-                document.content ++ "\n\n" ++ document.passage
+                document.passage
             else
-                document.content ++ "\n\n" ++ "-"
+                "-"
     in
-        div [ class "documentwrapper" ]
-            [ div [ class "document" ] [ Markdown.toHtml [] textString ]
+        div [ class "document" ]
+            [ p [] [ text textString ]
+            , p [] [ text passageString ]
             ]
 
 
@@ -319,11 +349,11 @@ showButtons language =
 
 showHeader : Html Msg
 showHeader =
-    div [ class "header panel panel-default" ]
-        [ div [ class "panel-body" ]
-            [ img [ class "headerimage", src "img/creation_of_adam.jpg" ] []
-            , text "vs."
-            , img [ class "headerimage", src "img/troll_net.jpg" ] []
+    div [ class "container header" ]
+        [ div [ class "row" ]
+            [ div [ class "col-md-5 headerimage" ] [ img [ class "well", src "img/creation_of_adam.jpg" ] [] ]
+            , div [ class "col-md-2" ] [ p [ class "well" ] [ text "vs." ] ]
+            , div [ class "col-md-5 headerimage" ] [ img [ class "well", src "img/troll_net.jpg" ] [] ]
             ]
         ]
 
@@ -378,7 +408,7 @@ divineButtonText : Language -> String
 divineButtonText language =
     case language of
         German ->
-            "Gott"
+            "von Gott"
 
         otherwise ->
             "divine"
@@ -408,10 +438,10 @@ questionText : Language -> String
 questionText language =
     case language of
         German ->
-            "Was denkst du? Ist dieser Text"
+            "Was ist dieser Text?"
 
         otherwise ->
-            "What do you think? Is this text"
+            "What is this text?"
 
 
 continueText : Language -> String
