@@ -63,6 +63,7 @@ body
 {
     font-size: 110%;
     margin-bottom: 10px;
+    /* todo: fix button stuck pressed on mobile devices */
 }
 
 .leftbutton
@@ -73,10 +74,6 @@ body
 .rightbutton
 {
     margin-left: 8px;
-}
-
-.button:focus {
-  outline: none;
 }
 
 .header
