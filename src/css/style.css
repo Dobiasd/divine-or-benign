@@ -36,8 +36,8 @@ body
     background-size: 100% auto;
     padding: 22px;
     margin: 0 auto;
-    max-width: 550px;
-    min-height: 150px;
+    width: 300px;
+    height: 180px;
     margin-bottom: 10px;
 }
 
