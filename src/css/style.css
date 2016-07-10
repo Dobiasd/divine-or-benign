@@ -39,6 +39,7 @@ body
     max-width: 300px;
     min-height: 180px;
     margin-bottom: 10px;
+    /* todo: make it keep its height, once increased */
 }
 
 .question
