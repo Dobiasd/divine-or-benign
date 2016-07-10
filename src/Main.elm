@@ -39,7 +39,7 @@ main =
 
 initModelAndCommands : ( Model, Cmd Msg )
 initModelAndCommands =
-    ( defaultModel, cmdGetRandomNumbers )
+    ( defaultModel, cmdGetRandomNumbers English )
 
 
 roundCount : Int
@@ -47,14 +47,14 @@ roundCount =
     10
 
 
-documentCount : Int
-documentCount =
-    List.length documentsEnglish
+documentCount : Language -> Int
+documentCount language =
+    List.length (documents language)
 
 
-cmdGetRandomNumbers : Cmd Msg
-cmdGetRandomNumbers =
-    Random.list roundCount (Random.int 0 documentCount)
+cmdGetRandomNumbers : Language -> Cmd Msg
+cmdGetRandomNumbers language =
+    Random.list roundCount (Random.int 0 (documentCount language))
         |> Random.generate RandomNumbers
 
 
@@ -147,14 +147,14 @@ update action model =
                 , points = 0
                 , state = Asking
               }
-            , cmdGetRandomNumbers
+            , cmdGetRandomNumbers model.language
             )
 
         LanguageSelect newLanguage ->
             ( { model
                 | language = newLanguage
               }
-            , cmdGetRandomNumbers
+            , cmdGetRandomNumbers model.language
             )
 
         RandomNumbers nums ->
@@ -187,17 +187,17 @@ view model =
 
                 ShowingAnswer result ->
                     viewShowingAnswer result model
-            , hr [] []
-            , showExplanation model.language
-            , hr [] []
-            , showFooter
             ]
+        , hr [] []
+        , showExplanation model.language
+        , hr [] []
+        , showFooter
         ]
 
 
 showPoints : Language -> Int -> Int -> Html Msg
 showPoints language points rounds =
-    div [ class "points" ]
+    div [ class "points panel panel-default" ]
         [ textPoints language
             ++ ": "
             ++ toString points
@@ -228,32 +228,51 @@ isCurrentDocumentDivine model =
 
 viewAsking : Model -> Html Msg
 viewAsking model =
-    div []
+    div [ class "jumbotron jumbotronmod" ]
         [ currentDocument model |> showDocument False
         , showButtons model.language
         , showPoints model.language model.points (model.round - 1)
         ]
 
 
+
+-- todo: progres bar
+-- todo: make end more noticable, show score in big
+
+
 viewShowingAnswer : Bool -> Model -> Html Msg
 viewShowingAnswer result model =
     let
-        buttonToShow =
-            if model.round < roundCount then
-                button [ class "button", onClick ContinueClick ] [ text (continueText model.language) ]
-            else
-                button [ class "button", onClick RestartClick ] [ text (restartText model.language) ]
+        notDoneYet =
+            model.round < roundCount
 
-        resultString =
-            if result then
-                textCorrect model.language
+        buttonToShow =
+            if notDoneYet then
+                button [ class "button btn btn-default btn-lg", onClick ContinueClick ] [ text (continueText model.language) ]
             else
-                textWrong model.language
+                div []
+                    [ button [ class "button btn btn-default btn-lg", onClick RestartClick ] [ text (restartText model.language) ] ]
+
+        ( resultString, resultClass ) =
+            if result then
+                ( textCorrect model.language, "result alert alert-success" )
+            else
+                ( textWrong model.language, "result alert alert-danger" )
+
+        resultHtml =
+            div [ class resultClass ]
+                [ div [ class "panel panel-default questiontext" ]
+                    [ text resultString ]
+                ]
     in
-        div []
-            [ currentDocument model |> showDocument True
-            , div [ class "result" ] [ text resultString ]
-            , div [ class "buttons" ] [ buttonToShow ]
+        div [ class "jumbotron jumbotronmod" ]
+            [ currentDocument model
+                |> showDocument True
+            , div
+                []
+                [ resultHtml
+                , div [ class "buttons" ] [ buttonToShow ]
+                ]
             , showPoints model.language model.points model.round
             ]
 
@@ -265,7 +284,7 @@ viewShowingAnswer result model =
 showFooter : Html Msg
 showFooter =
     footer [ class "footer" ]
-        [ text "Copyright © 2016 Tobias Hermann. All rights reserved."
+        [ text "Copyright © 2016 Tobias Hermann. All rights reserved. Contact: info (at) editgym.com"
         ]
 
 
@@ -285,21 +304,27 @@ showDocument withSource document =
 
 showButtons : Language -> Html Msg
 showButtons language =
-    div [ class "buttons" ]
-        [ div [ class "question" ] [ text (questionText language) ]
-        , button [ class "button", onClick DivineClick ] [ text (divineButtonText language) ]
-        , text (orText language)
-        , button [ class "button", onClick BenignClick ] [ text (benignButtonText language) ]
-        , div [] [ text "?" ]
+    div []
+        [ div [ class "alert alert-info question" ]
+            [ div [ class "panel panel-default questiontext" ]
+                [ text (questionText language) ]
+            ]
+        , div [ class "buttons" ]
+            [ button [ class "btn btn-default btn-lg button", onClick DivineClick ] [ text (divineButtonText language) ]
+            , text (orText language)
+            , button [ class "btn btn-default btn-lg button", onClick BenignClick ] [ text (benignButtonText language) ]
+            ]
         ]
 
 
 showHeader : Html Msg
 showHeader =
-    div [ class "header" ]
-        [ img [ class "headerimage", src "img/creation_of_adam.jpg" ] []
-        , text "vs."
-        , img [ class "headerimage", src "img/troll_net.jpg" ] []
+    div [ class "header panel panel-default" ]
+        [ div [ class "panel-body" ]
+            [ img [ class "headerimage", src "img/creation_of_adam.jpg" ] []
+            , text "vs."
+            , img [ class "headerimage", src "img/troll_net.jpg" ] []
+            ]
         ]
 
 
@@ -433,10 +458,10 @@ textPoints : Language -> String
 textPoints language =
     case language of
         German ->
-            "Punkte"
+            "deine Punkte"
 
         otherwise ->
-            "points"
+            "your score"
 
 
 documents : Language -> List Document

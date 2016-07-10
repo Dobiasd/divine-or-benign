@@ -1,0 +1,102 @@
+body
+{
+    font-size: 150%;
+}
+
+.mainwrapper
+{
+}
+
+.points
+{
+    text-align: center;
+}
+
+.result
+{
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.main
+{
+    font-size: 150%;
+}
+
+.documentwrapper
+{
+}
+
+.document
+{
+    font-family: Georgia, serif;
+    color: #000000;
+    background: url(../img/paper.jpg);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    padding: 16px;
+    margin: 0 auto;
+    max-width: 550px;
+    min-height: 150px;
+    margin-bottom: 10px;
+}
+
+.question
+{
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.questiontext
+{
+    margin-bottom: 0px;
+}
+
+
+
+.buttons
+{
+    text-align: center;
+    font-size: 120%;
+}
+
+.button
+{
+    font-size: 160%;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.header
+{
+    text-align: center;
+}
+
+.headerimage
+{
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+.explanation
+{
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.jumbotronmod
+{
+    padding-top: 16px;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+}
+
+.footer
+{
+    text-align: right;
+}
