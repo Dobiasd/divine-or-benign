@@ -1,11 +1,11 @@
 body
 {
-    font-size: 150%;
+    font-size: 140%;
 }
 
 .mainwrapper
 {
-    padding: 8px;
+    padding: 4px;
 }
 
 .points
@@ -36,8 +36,8 @@ body
     background-size: 100% auto;
     padding: 22px;
     margin: 0 auto;
-    width: 300px;
-    height: 180px;
+    max-width: 300px;
+    min-height: 180px;
     margin-bottom: 10px;
 }
 
@@ -57,14 +57,13 @@ body
 .buttons
 {
     text-align: center;
-    font-size: 110%;
 }
 
 .button
 {
-    font-size: 110%;
-    margin-left: 10px;
-    margin-right: 10px;
+    font-size: 115%;
+    margin-left: 8px;
+    margin-right: 8px;
     margin-bottom: 10px;
 }
 

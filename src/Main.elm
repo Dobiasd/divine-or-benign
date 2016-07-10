@@ -363,7 +363,7 @@ showExplanationEnglish =
     div [ class "explanation" ]
         [ Markdown.toHtml [] """
 
-## Can you distinguish God from a recurrent neural network?
+### Can you distinguish God from a recurrent neural network?
 
 Assign the shown text to its source, i.e.
 [the Bible](https://en.wikipedia.org/wiki/King_James_Version)
@@ -381,7 +381,7 @@ showExplanationGerman =
     div [ class "explanation" ]
         [ Markdown.toHtml [] """
 
-## Kannst du den Schöpfer von einem rekurrenten neuronalen Netz unterscheiden?
+### Kannst du den Schöpfer von einem rekurrenten neuronalen Netz unterscheiden?
 
 Ordne dem gezeigten Text seine Quelle zu, d.h. entweder
 [die Bibel](https://de.wikipedia.org/wiki/Lutherbibel)
