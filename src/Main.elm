@@ -60,7 +60,7 @@ cmdGetRandomNumbers language =
 
 type State
     = Asking
-    | ShowingAnswer Bool
+    | ShowingAnswer Bool Bool
 
 
 type alias Model =
@@ -107,28 +107,28 @@ update action model =
             if isCurrentDocumentDivine model then
                 ( { model
                     | points = model.points + 1
-                    , state = ShowingAnswer True
+                    , state = ShowingAnswer True True
                   }
                 , Cmd.none
                 )
             else
                 ( { model
-                    | state = ShowingAnswer False
+                    | state = ShowingAnswer False False
                   }
                 , Cmd.none
                 )
 
         BenignClick ->
-            if isCurrentDocumentDivine model then
+            if not <| isCurrentDocumentDivine model then
                 ( { model
-                    | state = ShowingAnswer False
+                    | state = ShowingAnswer True False
                   }
                 , Cmd.none
                 )
             else
                 ( { model
                     | points = model.points + 1
-                    , state = ShowingAnswer True
+                    , state = ShowingAnswer False True
                   }
                 , Cmd.none
                 )
@@ -185,8 +185,8 @@ view model =
                 Asking ->
                     viewAsking model
 
-                ShowingAnswer result ->
-                    viewShowingAnswer result model
+                ShowingAnswer wasCorrect wasDivine ->
+                    viewShowingAnswer wasCorrect wasDivine model
             ]
         , hr [] []
         , showExplanation model.language
@@ -260,8 +260,8 @@ viewAsking model =
         ]
 
 
-viewShowingAnswer : Bool -> Model -> Html Msg
-viewShowingAnswer result model =
+viewShowingAnswer : Bool -> Bool -> Model -> Html Msg
+viewShowingAnswer wasCorrect wasDivine model =
     let
         notDoneYet =
             model.round < roundCount
@@ -273,10 +273,10 @@ viewShowingAnswer result model =
                 button [ class "btn btn-default btn-lg button", onClick RestartClick ] [ text (restartText model.language) ]
 
         ( resultString, resultClass ) =
-            if result then
-                ( textCorrect model.language, "result alert alert-success" )
+            if wasCorrect then
+                ( textCorrect model.language wasDivine, "result alert alert-success" )
             else
-                ( textWrong model.language, "result alert alert-danger" )
+                ( textWrong model.language wasDivine, "result alert alert-danger" )
 
         resultHtml =
             div [ class resultClass ]
@@ -313,7 +313,7 @@ showDocument withSource document =
             if withSource then
                 document.passage
             else
-                "-"
+                "✝?"
     in
         div [ id "textdocument", class "document" ]
             [ p [] [ text textString ]
@@ -453,23 +453,35 @@ restartText language =
             "once again"
 
 
-textCorrect : Language -> String
-textCorrect language =
-    case language of
-        German ->
+textCorrect : Language -> Bool -> String
+textCorrect language wasDivine =
+    case ( language, wasDivine ) of
+        ( German, True ) ->
             "Deine Antwort war richtig."
 
-        otherwise ->
-            "Your answer was Correct."
+        ( German, False ) ->
+            "Deine Antwort war richtig."
+
+        ( otherwise, True ) ->
+            "Your answer was correct."
+
+        ( otherwise, False ) ->
+            "Your answer was correct."
 
 
-textWrong : Language -> String
-textWrong language =
-    case language of
-        German ->
+textWrong : Language -> Bool -> String
+textWrong language wasDivine =
+    case ( language, wasDivine ) of
+        ( German, True ) ->
+            "Falsch. Das ist biblisch."
+
+        ( German, False ) ->
             "Deine Antwort war falsch."
 
-        otherwise ->
+        ( otherwise, True ) ->
+            "Wrong. This is scriptural."
+
+        ( otherwise, False ) ->
             "Your answer was wrong."
 
 
