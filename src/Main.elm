@@ -121,14 +121,14 @@ update action model =
         BenignClick ->
             if not <| isCurrentDocumentDivine model then
                 ( { model
-                    | state = ShowingAnswer True False
+                    | points = model.points + 1
+                    , state = ShowingAnswer True False
                   }
                 , Cmd.none
                 )
             else
                 ( { model
-                    | points = model.points + 1
-                    , state = ShowingAnswer False True
+                    | state = ShowingAnswer False True
                   }
                 , Cmd.none
                 )
@@ -272,16 +272,54 @@ viewShowingAnswer wasCorrect wasDivine model =
             else
                 button [ class "btn btn-default btn-lg button", onClick RestartClick ] [ text (restartText model.language) ]
 
-        ( resultString, resultClass ) =
-            if wasCorrect then
-                ( textCorrect model.language wasDivine, "result alert alert-success" )
-            else
-                ( textWrong model.language wasDivine, "result alert alert-danger" )
+        doneDiv =
+            div [ class "panel panel-default" ]
+                [ div [ class "donetext" ]
+                    [ 100
+                        * model.points
+                        // roundCount
+                        |> toString
+                        |> \x ->
+                            resultText model.language
+                                ++ x
+                                ++ "%"
+                                |> text
+                    ]
+                ]
+
+        ( resultString, resultClass, doneDivToShow ) =
+            case ( wasCorrect, notDoneYet ) of
+                ( True, True ) ->
+                    ( textCorrect model.language wasDivine
+                    , "result alert alert-success"
+                    , div [] []
+                    )
+
+                ( False, True ) ->
+                    ( textWrong model.language wasDivine
+                    , "result alert alert-danger"
+                    , div [] []
+                    )
+
+                ( True, False ) ->
+                    ( textCorrect model.language wasDivine
+                    , "result alert alert-success"
+                    , doneDiv
+                    )
+
+                ( False, False ) ->
+                    ( textWrong model.language wasDivine
+                    , "result alert alert-danger"
+                    , doneDiv
+                    )
 
         resultHtml =
-            div [ class resultClass ]
-                [ div [ class "panel panel-default questiontext" ]
-                    [ text resultString ]
+            div []
+                [ div [ class resultClass ]
+                    [ div [ class "panel panel-default questiontext" ]
+                        [ text resultString ]
+                    ]
+                , doneDivToShow
                 ]
     in
         div [ class "jumbotron jumbotronmod" ]
@@ -338,13 +376,8 @@ showButtons language =
 
 showHeader : Html Msg
 showHeader =
-    div [ class "container header" ]
-        [ div [ class "row" ]
-            [ div [ class "col-md-5 headerimage" ] [ img [ class "well", src "img/creation_of_adam.jpg" ] [] ]
-            , div [ class "col-md-2" ] [ p [ class "well vstext" ] [ text "vs." ] ]
-            , div [ class "col-md-5 headerimage" ] [ img [ class "well", src "img/troll_net.jpg" ] [] ]
-            ]
-        ]
+    div []
+        [ img [ class "banner img-responsive", src "img/banner.jpg" ] [] ]
 
 
 showExplanation : Language -> Html Msg
@@ -503,3 +536,13 @@ documents language =
 
         otherwise ->
             documentsEnglish
+
+
+resultText : Language -> String
+resultText language =
+    case language of
+        German ->
+            "Fertig. Dein Ergebnis: "
+
+        otherwise ->
+            "Done. Your score: "
