@@ -273,7 +273,7 @@ viewShowingAnswer wasCorrect wasDivine model =
                 button [ class "btn btn-default btn-lg button", onClick RestartClick ] [ text (restartText model.language) ]
 
         doneDiv =
-            div [ class "panel panel-default" ]
+            div [ class "panel panel-default donepanel" ]
                 [ div [ class "donetext" ]
                     [ 100
                         * model.points
