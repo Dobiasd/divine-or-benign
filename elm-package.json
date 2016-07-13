@@ -1,7 +1,7 @@
 {
     "version": "1.0.0",
     "summary": "The holy Turing test",
-    "repository": "https://github.com/dobiasd/divineorbenign.git",
+    "repository": "https://github.com/dobiasd/divine-or-benign.git",
     "license": "MIT",
     "source-directories": [
         "src"
