@@ -120,6 +120,11 @@ body
     padding-bottom: 8px;
 }
 
+.otherlanguages
+{
+    text-align: left;
+}
+
 .footer
 {
     text-align: right;

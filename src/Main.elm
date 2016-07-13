@@ -191,6 +191,8 @@ view model =
         , hr [] []
         , showExplanation model.language
         , hr [] []
+        , showOtherLanguages model.language
+        , hr [] []
         , showFooter
         ]
 
@@ -331,6 +333,23 @@ viewShowingAnswer wasCorrect wasDivine model =
                 , div [ class "buttons" ] [ buttonToShow ]
                 ]
             , showPoints model.language model.points model.round
+            ]
+
+
+showOtherLanguages : Language -> Html Msg
+showOtherLanguages language =
+    let
+        ( str, lang, lnk ) =
+            case language of
+                German ->
+                    ( "Andere Sprachen: ", "Englisch", "index.html?lang=en" )
+
+                otherwise ->
+                    ( "other languages: ", "German", "index.html?lang=de" )
+    in
+        div [ class "otherlanguages" ]
+            [ text str
+            , a [ href lnk ] [ text lang ]
             ]
 
 
