@@ -15,10 +15,39 @@ type alias Document =
     }
 
 
+trimLongerOne : List a -> List b -> ( List a, List b )
+trimLongerOne xs ys =
+    List.map2 (,) xs ys |> List.unzip
+
+
 documentsEnglish : List Document
 documentsEnglish =
-    List.map (uncurry (Document God)) divineTextsEnglish
-        ++ List.map (uncurry (Document RNN)) benignTextsEnglish
+    let
+        allDivine =
+            List.map (uncurry (Document God)) divineTextsEnglish
+
+        allBenign =
+            List.map (uncurry (Document RNN)) benignTextsEnglish
+
+        ( divines, benigns ) =
+            trimLongerOne allDivine allBenign
+    in
+        divines ++ benigns
+
+
+documentsGerman : List Document
+documentsGerman =
+    let
+        allDivine =
+            List.map (uncurry (Document God)) divineTextsGerman
+
+        allBenign =
+            List.map (uncurry (Document RNN)) benignTextsGerman
+
+        ( divines, benigns ) =
+            trimLongerOne allDivine allBenign
+    in
+        divines ++ benigns
 
 
 divineTextsEnglish : List ( String, String )
@@ -697,12 +726,6 @@ benignTextsEnglish =
     ]
 
 
-documentsGerman : List Document
-documentsGerman =
-    List.map (uncurry (Document God)) divineTextsGerman
-        ++ List.map (uncurry (Document RNN)) benignTextsGerman
-
-
 divineTextsGerman : List ( String, String )
 divineTextsGerman =
     [ ( "Num 32:40", "Da gab Mose dem Machir, dem Sohn Manasses, Gilead; und er wohnte darin." )
@@ -1043,6 +1066,5 @@ divineTextsGerman =
 
 benignTextsGerman : List ( String, String )
 benignTextsGerman =
-    [ ( "", "random bla bla" )
-    , ( "", "nonsense bla bla" )
+    [ ( "", "Das Netz trainiert noch. =)" )
     ]
