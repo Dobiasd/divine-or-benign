@@ -54,7 +54,7 @@ documentCount language =
 
 cmdGetRandomNumbers : Language -> Cmd Msg
 cmdGetRandomNumbers language =
-    Random.list roundCount (Random.int 0 (documentCount language))
+    Random.list roundCount (Random.int 0 (documentCount language - 1))
         |> Random.generate RandomNumbers
 
 
@@ -154,7 +154,7 @@ update action model =
             ( { model
                 | language = newLanguage
               }
-            , cmdGetRandomNumbers model.language
+            , cmdGetRandomNumbers newLanguage
             )
 
         RandomNumbers nums ->
