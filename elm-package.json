@@ -1,8 +1,8 @@
 {
     "version": "1.0.0",
-    "summary": "Search the FunctionalPlus C++ library.",
-    "repository": "https://github.com/dobiasd/functionalplus.git",
-    "license": "Boost 1.0",
+    "summary": "The holy Turing test",
+    "repository": "https://github.com/dobiasd/divineorbenign.git",
+    "license": "MIT",
     "source-directories": [
         "src"
     ],
