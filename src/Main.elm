@@ -192,6 +192,7 @@ view model =
         , showExplanation model.language
         , hr [] []
         , showOtherLanguages model.language
+        , showSourceLink
         , hr [] []
         , showFooter
         ]
@@ -334,6 +335,12 @@ viewShowingAnswer wasCorrect wasDivine model =
                 ]
             , showPoints model.language model.points model.round
             ]
+
+
+showSourceLink : Html Msg
+showSourceLink =
+    div [ class "sourcelink" ]
+        [ a [ href "https://github.com/Dobiasd/divine-or-benign" ] [ text "source on github" ] ]
 
 
 showOtherLanguages : Language -> Html Msg

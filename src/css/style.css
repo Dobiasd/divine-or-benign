@@ -120,9 +120,16 @@ body
     padding-bottom: 8px;
 }
 
+.sourcelink
+{
+    text-align: right;
+    margin: 0 0;
+}
+
 .otherlanguages
 {
-    text-align: left;
+    text-align: right;
+    margin: 0 0;
 }
 
 .footer

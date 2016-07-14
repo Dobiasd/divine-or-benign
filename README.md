@@ -4,9 +4,4 @@
 
 ![screenshot](screenshot.png)
 
-Assign the shown text to its source, i.e.
-[the Bible](https://en.wikipedia.org/wiki/King_James_Version)
-or a [RNN](https://en.wikipedia.org/wiki/Recurrent_neural_network)
-generating more or less random nonsense.
-A RNN is a mathematical model suitable to process text.
-The one used here was trained on text from the Bible to be able to match its style.
+I was playing around with [artificial neural networks](https://github.com/jcjohnson/torch-rnn) and liked the nonsensical output they produce when "trained" on the bible. So I made a small website that lets one guess if a text snippet is from the bible or artificially created.
